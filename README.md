@@ -1,6 +1,6 @@
 # ENGG1340-Group-115-project
 
-## Problem statement
+## Problem statement 
 Question 4: <br/>
 To build an accounting system to help user keep track of his/her income and expense. <br/>
 The system also allows the user to display their records with certain filtering and sorting methods.
