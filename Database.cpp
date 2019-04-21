@@ -17,6 +17,14 @@ void Database::addRecord(Record &newRecord, int &databaseSize, int &numOfRecord)
                     //not implement yet
                     //size of new array double
                     //expand array size + copy original content of array to new array
+            
+            databaseSize *= 2;                  // Double the previous size.
+            Record* temp = new Record[databaseSize];  // Allocate new, bigger array.
+            for (int i=0; i<numOfRecord; i++) {
+                temp[i] = database[i];                 // Copy old array to new array.
+            }
+            delete [] database;                        // Free old array memory.
+            database = temp;                           // Now a points to new array.  
     }
     
     
