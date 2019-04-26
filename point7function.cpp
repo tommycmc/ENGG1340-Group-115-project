@@ -24,3 +24,21 @@ string allToLower(string str)               //convert and return a str with all 
 
     return str;
 }
+
+string dateConvert(string date)             //convert date format like DD-MM-YYYY or DD/MM/YYYY to DDMMYYYY
+{
+    string temp = "";
+    if(date.length() == 10)
+    {
+        temp += date.substr(0, 2);
+        temp += date.substr(3, 2);
+        temp += date.substr(6, 4);
+
+        return temp;
+    }
+    else
+    {
+        cout << "Incorrect date format" << endl;
+        return "NA";
+    }
+}
