@@ -2,12 +2,12 @@
 
 Database::Database(int &databaseSize) {
     this->database = new Record[databaseSize];                //create dynamic array according to defined database size 
-    cout << "created database" << endl;
+//    cout << "created database" << endl;
 }
 
 Database::~Database() {
     delete [] this->database;                                 //release database (record pointer) properly.
-    cout << "deleted database" << endl;
+//    cout << "deleted database" << endl;
 }
 
 //getter function//
@@ -15,7 +15,7 @@ Record Database::getRecordFromDatabase(int &pos){
     return this->database[pos];
 }
 
-Record* Database::getAddress(){
+Record *Database::getAddress(){
     return this->database;
 }
 
@@ -27,7 +27,7 @@ void Database::setNull(){
 
 void Database::manDelDatabase(){
     delete [] database;
-    cout << "deleted database manually" << endl;
+//    cout << "deleted database manually" << endl;
     this->database = nullptr;
 }
 
@@ -39,6 +39,7 @@ void Database::displayRecordWithPos(int &i){
 }
 
 void Database::showDatabase(int &numOfRecord){
+    this->sortDatabase(numOfRecord, 1);
     for(int i{0}; i<numOfRecord; i++)
         displayRecordWithPos(i);
 }
@@ -106,6 +107,7 @@ void Database::deleteRecord(int pos, int &numOfRecord, int &databaseSize){
 
 //filter function//
 void Database::filterShowDatabase(const int &numOfRecord, const int &choice){
+    this->sortDatabase(numOfRecord, 1);
     string keyword{""}, inputDay{"1"}, inputMonth{"1"}, inputYear{"1980"}, inputHour{"12"}, inputMinute{"59"};          //need to seperate request function to 
     int min{0}, max{0}, day{1}, month{1}, year{1980}, hour{12}, minute{59};                                             //another function
     if(choice == 2 || choice == 3 || choice == 4 || choice == 5){
@@ -171,38 +173,118 @@ void Database::filterShowDatabase(const int &numOfRecord, const int &choice){
 
 //sort function//
 bool Database::sortSelector(int &i, int &j, int &choice){
-    switch(choice){
-        case 1: characterOfPaymentCond(i, j);
-                break;
-        case 2: typeOfPaymentCond(i, j);
-                break;
-        case 3: dateAndTimeCond(i, j);
-                break;
-        default:    break;
-    }
-    return false;
+    if(choice == 1)
+        return amountCondAsc(i, j);
+    else if(choice == 2)
+        return amountCondDesc(i, j);
+    else if(choice == 3)
+        return characterOfPaymentCondAsc(i, j);
+    else if(choice == 4)
+        return characterOfPaymentCondDesc(i, j);  
+    else if(choice == 5)
+        return typeOfPaymentCondAsc(i, j);
+    else if(choice == 6)
+        return typeOfPaymentCondDesc(i, j);
+    else if(choice == 7)
+        return dateAndTimeCondAsc(i, j);
+    else if(choice == 8)
+        return dateAndTimeCondDesc(i, j);
+    else return false;
 }
 
-bool Database::characterOfPaymentCond(int &i, int &j){
+bool Database::amountCondAsc(int &i, int &j){
+    if(this->database[i].getAmount() <= this->database[j].getAmount())
+        return true;
+    else
+        return false;
+}
+
+bool Database::amountCondDesc(int &i, int &j){
+    if(this->database[i].getAmount() >= this->database[j].getAmount())
+        return true;
+    else
+        return false;
+}
+
+bool Database::characterOfPaymentCondAsc(int &i, int &j){
     if(this->database[i].getCharacterOfPayment() <= this->database[j].getCharacterOfPayment())
         return true;
     else
         return false;
 }
 
-bool Database::typeOfPaymentCond(int &i, int &j){
+bool Database::characterOfPaymentCondDesc(int &i, int &j){
+    if(this->database[i].getCharacterOfPayment() >= this->database[j].getCharacterOfPayment())
+        return true;
+    else
+        return false;
+}
+
+bool Database::typeOfPaymentCondAsc(int &i, int &j){
     if(this->database[i].getTypeOfPayment() <= this->database[j].getTypeOfPayment())
         return true;
     else
         return false;
 }
 
-bool Database::dateAndTimeCond(int &i, int &j){
+bool Database::typeOfPaymentCondDesc(int &i, int &j){
+    if(this->database[i].getTypeOfPayment() >= this->database[j].getTypeOfPayment())
+        return true;
+    else
+        return false;
+}
+
+bool Database::dateAndTimeCondAsc(int &i, int &j){
+    if(this->database[i].getYear() < this->database[j].getYear())
+        return true;
+    else if(this->database[i].getYear() > this->database[j].getYear())
+        return false;
+        
+    if(this->database[i].getMonth() < this->database[j].getMonth())
+        return true;
+    else if(this->database[i].getMonth() > this->database[j].getMonth())
+        return false;
+    
     if(this->database[i].getDay() < this->database[j].getDay())
         return true;
-    else if(this->database[i].getDay() == this->database[j].getDay() && this->database[i].getMinute() <= this->database[j].getMinute())
+    else if(this->database[i].getDay() > this->database[j].getDay())
+        return false;
+        
+    if(this->database[i].getHour() < this->database[j].getHour())
         return true;
-    else 
+    else if(this->database[i].getHour() > this->database[j].getHour())
+        return false;
+    
+    if(this->database[i].getMinute() <= this->database[j].getMinute())   
+        return true;
+    else
+        return false;
+}
+
+bool Database::dateAndTimeCondDesc(int &i, int &j){
+    if(this->database[i].getYear() > this->database[j].getYear())
+        return true;
+    else if(this->database[i].getYear() < this->database[j].getYear())
+        return false;
+        
+    if(this->database[i].getMonth() > this->database[j].getMonth())
+        return true;
+    else if(this->database[i].getMonth() < this->database[j].getMonth())
+        return false;
+    
+    if(this->database[i].getDay() > this->database[j].getDay())
+        return true;
+    else if(this->database[i].getDay() < this->database[j].getDay())
+        return false;
+        
+    if(this->database[i].getHour() > this->database[j].getHour())
+        return true;
+    else if(this->database[i].getHour() < this->database[j].getHour())
+        return false;
+    
+    if(this->database[i].getMinute() >= this->database[j].getMinute())   
+        return true;
+    else
         return false;
 }
 
@@ -213,6 +295,7 @@ void Database::singleMerge(int left, int mid, int right, int &choice){
     int k = 0;                                                                      //k is the index for the temporary database
     while(i <= mid && j <=right){
         if(sortSelector(i, j, choice))
+
             tempDatabase.getAddress()[k++] = this->database[i++];
         else
             tempDatabase.getAddress()[k++] = this->database[j++];
@@ -224,9 +307,10 @@ void Database::singleMerge(int left, int mid, int right, int &choice){
     while(j <= right)                                                               //rest elements of right-half database
         tempDatabase.getAddress()[k++] = this->database[j++];
    
-    for(k = 0, i = left; i <= right; ++i, ++k)                                      //copy the mergered temporary database to the original database
+    for(k = 0, i = left; i <= right; i++, k++)                                      //copy the mergered temporary database to the original database
         this->database[i] = tempDatabase.getAddress()[k];
 
+    tempDatabase.setNull();
 }
 
 void Database::recurseMerge(int left, int right, int &choice){
@@ -238,6 +322,38 @@ void Database::recurseMerge(int left, int right, int &choice){
     }
 }    
 
-void Database::sortDatabase(int numOfRecord, int &choice){                   //use merge sort(recursive method)
+void Database::sortDatabase(int numOfRecord, int choice){                      //use merge sort(recursive method)
     this->recurseMerge(0, numOfRecord-1, choice);
+}
+
+
+//aggregate function//
+double Database::SUM(const int &numOfRecord){
+    double totalAmount{0.0};
+    for(int i{0}; i<numOfRecord; i++)
+        totalAmount += this->database[i].getAmount();                          //traverse all records in Database, add add amount to totalAmount
+    return totalAmount;
+}
+
+double Database::AVERAGE(const int &numOfRecord){
+    return this->SUM(numOfRecord)/numOfRecord;                                 //use SUM function to get total amount, then divide it 
+}                                                                              //by the no. of record we have
+
+double Database::MEDIAN(const int &numOfRecord){
+    int medPos{numOfRecord/2};                                                 //find the central pos regardless of odd/even
+    this->sortDatabase(numOfRecord, 1);
+    if(numOfRecord % 2 == 0)                                                            
+        return this->database[medPos].getAmount();                              //no. of records = even
+    else                                                                                
+        return (this->database[medPos].getAmount() + this->database[medPos+1].getAmount())/2;               //no. of records = odd
+}
+
+double Database::MIN(const int &numOfRecord){
+    this->sortDatabase(numOfRecord, 1);
+    return this->database[0].getAmount(); 
+}
+
+double Database::MAX(const int &numOfRecord){
+    this->sortDatabase(numOfRecord, 2);
+    return this->database[0].getAmount(); 
 }
