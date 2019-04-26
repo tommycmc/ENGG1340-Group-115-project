@@ -25,7 +25,7 @@ string allToLower(string str)               //convert and return a str with all 
     return str;
 }
 
-string dateConvert(string date)             //convert date format like DD-MM-YYYY or DD/MM/YYYY to DDMMYYYY
+string dateExtract(string date)             //convert date format like DD-MM-YYYY or DD/MM/YYYY to DDMMYYYY
 {
     string temp = "";
     if(date.length() == 10)
@@ -41,4 +41,38 @@ string dateConvert(string date)             //convert date format like DD-MM-YYY
         cout << "Incorrect date format" << endl;
         return "NA";
     }
+}
+
+bool checkDate(string date)                 //check if date input is valid or not (month > 12 or day > 31) Assume date format: DDMMYYYY
+{
+    int day   = stoi(date.substr(0,2));
+    int month = stoi(date.substr(2,2));
+    int year  = stoi(date.substr(4,4));
+    if(month>12 || month==0)
+    {
+        cout << "Invalid month! (month > 12)" << endl;
+        return false;
+    }
+    else if(day>31 || day==0)
+    {
+        cout << "Invalid day! (day > 31)" << endl;
+        return false;
+    }
+    else if((month == 4 || month == 6 || month == 9 || month == 11) && day>30)
+    {
+        cout << "Invalid day! (day > 30 in small month)" << endl;
+        return false;
+    }
+    else if(month==2 && year%4!=0 && day>28)
+    {
+        cout << "Invalid day! (day > 28 in normal Feb)" << endl;
+        return false;
+    }
+    else if(month==2 && year%4==0 && day>29)
+    {
+        cout << "Invalid day! (day > 29 in Feb of leap year)" << endl;
+        return false;
+    }
+    else
+        return true;
 }
