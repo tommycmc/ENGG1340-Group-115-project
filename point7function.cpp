@@ -18,7 +18,7 @@ string allToLower(string str)               //convert and return a str with all 
 {
     for(int i{0}; i<str.length(); i++)
     {
-        if(str[i]>=65 && str[i]<=90)       //by ACSII table
+        if(str[i]>=65 && str[i]<=90)        //by ACSII table
             str[i] += 32;
     }
 
@@ -44,6 +44,7 @@ string dateExtract(string date)             //convert date format like DD-MM-YYY
 }
 
 bool checkDate(string date)                 //check if date input is valid or not (month > 12 or day > 31) Assume date format: DDMMYYYY
+                                            //return true if valid otherwise return false
 {
     int day   = stoi(date.substr(0,2));
     int month = stoi(date.substr(2,2));
@@ -71,6 +72,25 @@ bool checkDate(string date)                 //check if date input is valid or no
     else if(month==2 && year%4==0 && day>29)
     {
         cout << "Invalid day! (day > 29 in Feb of leap year)" << endl;
+        return false;
+    }
+    else
+        return true;
+}
+
+bool checkTime (string timeStr)             //check if time input is valid or not (e.g. hour>24 or minute>60) Format: HHMM
+                                            //return true if valid otherwise return false
+{
+    int hour   = stoi(timeStr.substr(0,2));
+    int minute = stoi(timeStr.substr(2,2));
+    if (hour>23)
+    {
+        cout << "Invalid hour! (hour > 23)" << endl;
+        return false;
+    }
+    else if (minute>59)
+    {
+        cout << "Invalid minute! (minute > 59)" << endl;
         return false;
     }
     else
