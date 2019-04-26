@@ -53,32 +53,31 @@ public:
 
 
     //sort function//
-    bool characterOfPaymentCond(int &i, int &j);                                //condition for sort function
-    bool typeOfPaymentCond(int &i, int &j);
-    bool dateAndTimeCond(int &i, int &j);                           
+    bool amountCondAsc(int &i, int &j);
+    bool amountCondDesc(int &i, int &j);
+    bool characterOfPaymentCondAsc(int &i, int &j);                                //condition for sort function
+    bool characterOfPaymentCondDesc(int &i, int &j); 
+    bool typeOfPaymentCondAsc(int &i, int &j);
+    bool typeOfPaymentCondDesc(int &i, int &j);
+    bool dateAndTimeCondAsc(int &i, int &j);     
+    bool dateAndTimeCondDesc(int &i, int &j);
 
     bool sortSelector(int &i, int &j, int &choice);
 
     void singleMerge(int left, int mid, int right, int &choice);
     void recurseMerge(int left, int right, int &choice);
-    void sortDatabase(int numOfRecord, int &choice);                            //use merge sort to sort the records in database based on some criteria
+    void sortDatabase(int numOfRecord, int choice);                            //use merge sort to sort the records in database based on some criteria
     
-
     
+    //aggregate fucniton//
+    double SUM(const int &numOfRecord);
+    double AVERAGE(const int &numOfRecord);
+    double MEDIAN(const int &numOfRecord);
+    double MIN(const int &numOfRecord);
+    double MAX(const int &numOfRecord);
 
-
-
-
-
-
-
-
-
-
+    //interface
     
-
-
-
 
 };
 
