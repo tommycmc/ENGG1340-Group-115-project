@@ -1,11 +1,8 @@
-#include <iostream>
-#include <string>
+#include "utilityFunction.h"
 
-using namespace std;
-
-string allToUpper(string str)                //convert and return a str with all lowercase to UPPERcase
+std::string allToUpper(std::string str)                //convert and return a str with all lowercase to UPPERcase
 {
-    for(int i{0}; i<str.length(); i++)
+    for(size_t i{0}; i<str.length(); i++)
     {
         if(str[i]>=97 && str[i]<=122)       //by ACSII table
             str[i] -= 32;
@@ -14,9 +11,9 @@ string allToUpper(string str)                //convert and return a str with all
     return str;
 }
 
-string allToLower(string str)               //convert and return a str with all UPPERcase to lowercase
+std::string allToLower(std::string str)               //convert and return a str with all UPPERcase to lowercase
 {
-    for(int i{0}; i<str.length(); i++)
+    for(size_t i{0}; i<str.length(); i++)
     {
         if(str[i]>=65 && str[i]<=90)        //by ACSII table
             str[i] += 32;
@@ -25,9 +22,9 @@ string allToLower(string str)               //convert and return a str with all 
     return str;
 }
 
-string dateExtract(string date)             //convert date format like DD-MM-YYYY or DD/MM/YYYY to DDMMYYYY
+std::string dateExtract(std::string date)             //convert date format like DD-MM-YYYY or DD/MM/YYYY to DDMMYYYY
 {
-    string temp = "";
+    std::string temp = "";
     if(date.length() == 10)
     {
         temp += date.substr(0, 2);
@@ -43,7 +40,7 @@ string dateExtract(string date)             //convert date format like DD-MM-YYY
     }
 }
 
-bool checkDate(string date)                 //check if date input is valid or not (month > 12 or day > 31) Assume date format: DDMMYYYY
+bool checkDate(std::string date)                 //check if date input is valid or not (month > 12 or day > 31) Assume date format: DDMMYYYY
                                             //return true if valid otherwise return false
 {
     int day   = stoi(date.substr(0,2));
@@ -78,7 +75,7 @@ bool checkDate(string date)                 //check if date input is valid or no
         return true;
 }
 
-bool checkTime (string timeStr)             //check if time input is valid or not (e.g. hour>24 or minute>60) Format: HHMM
+bool checkTime (std::string timeStr)             //check if time input is valid or not (e.g. hour>24 or minute>60) Format: HHMM
                                             //return true if valid otherwise return false
 {
     int hour   = stoi(timeStr.substr(0,2));
@@ -96,3 +93,4 @@ bool checkTime (string timeStr)             //check if time input is valid or no
     else
         return true;
 }
+
