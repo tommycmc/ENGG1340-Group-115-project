@@ -106,46 +106,10 @@ void Database::deleteRecord(int pos, int &numOfRecord, int &databaseSize){
         this->skipRecord(pos, numOfRecord, databaseSize);
 }
 
-//filter input function - temp//
-//    string keyword{""}, inputDay{"1"}, inputMonth{"1"}, inputYear{"1980"}, inputHour{"12"}, inputMinute{"59"};          //need to seperate request function to 
-//    int min{0}, max{0}, day{1}, month{1}, year{1980}, hour{12}, minute{59};                                             //another function
-//    if(choice == 2 || choice == 3 || choice == 4 || choice == 5){
-//        cout << "What's your filtered word?" << endl;
-//        cin >> keyword;
-//    }
-//    else if(choice == 1){
-//        cout << "Minimum: ";
-//        cin >> min;
-//        cout << "Maximum: ";
-//        cin >> max;
-//    }
-//    else if(choice == 6){
-//        cout << "Day: ";
-//        cin >> inputDay;
-//        day = stoi(inputDay);
-//        cout << "\nMonth: ";
-//        cin >> inputMonth;
-//        month = stoi(inputMonth);
-//        cout << "\nYear: ";
-//        cin >> inputYear;
-//        year = stoi(inputYear);
-//    }
-//    else if(choice == 7){
-//        month = 4;
-//    }
-//    else if(choice == 8){
-//        cout << "Hour: ";
-//        cin >> inputHour;
-//        hour = stoi(inputHour);
-//        cout << "Minute: ";
-//        cin >> inputMinute;
-//        minute = stoi(inputMinute);
-//    }
+
 
 //filter function//
 Database Database::filterDatabaseAmount(int &filterNumOfRecord, int &filterDatabaseSize, const int &originalNumOfRecord, const int min, const int max){
-    //create temp database -> filter out the original database -> save to temp database -> return temp database
-    
     Database filterDatabase = Database(filterDatabaseSize);
     for(int i{0}; i<originalNumOfRecord; i++){
         if(this->database[i].getAmount() >= min && this->database[i].getAmount() <= max)
@@ -228,6 +192,14 @@ Database Database::filterDatabaseBothDateTime(int &filterNumOfRecord, int &filte
     return filterDatabaseBothDateTime(filterNumOfRecord, filterDatabaseSize, originalNumOfRecord, year, month, day, hour, -1);
 }
 
+Database Database::filterDatabaseExpense(int &filterNumOfRecord, int &filterDatabaseSize, const int &originalNumOfRecord, const bool &expense){
+    Database filterDatabase = Database(filterDatabaseSize);
+    for(int i{0}; i<originalNumOfRecord; i++){
+        if(this->database[i].isExpense() == expense)
+            filterDatabase.addRecord(this->database[i], filterNumOfRecord, filterDatabaseSize);
+    }
+    return filterDatabase;
+}
 
 
 
@@ -387,6 +359,7 @@ void Database::sortDatabase(int numOfRecord, int choice){                      /
 }
 
 
+
 //aggregate function//
 double Database::SUM(const int &numOfRecord){
     double totalAmount{0.0};
@@ -397,15 +370,42 @@ double Database::SUM(const int &numOfRecord){
 
 double Database::SUM(const int &numOfRecord, const int year, const int month){
     int filterNumOfRecord{0}, filterDatabaseSize{3}; 
-    double totalAmount{0.0};
     Database monthDatabase = this->filterDatabaseBothDateTime(filterNumOfRecord, filterDatabaseSize, numOfRecord, year, month);
-    for(int i{0}; i<filterNumOfRecord; i++)
-        totalAmount += monthDatabase.getAddress()[i].getAmount();              //traverse all records in filtered Database, add add amount to totalAmount
-    return filterNumOfRecord;
+    return monthDatabase.SUM(filterNumOfRecord);
 }
 
 double Database::SUM(const int &numOfRecord, const int year){
     return this->SUM(numOfRecord, year, -1);
+}
+
+double Database::SUMExpense(const int &numOfRecord, const bool &expense){
+    int filterNumOfRecord{0}, filterDatabaseSize{3}; 
+    Database expenseDatabase = this->filterDatabaseExpense(filterNumOfRecord, filterDatabaseSize, numOfRecord, expense);
+    return expenseDatabase.SUM(filterNumOfRecord);
+}
+
+double Database::SUMExpense(const int &numOfRecord, const bool &expense, const int year, const int month){
+    int filterNumOfRecord{0}, filterDatabaseSize{3}; 
+    Database monthExpenseDatabase = this->filterDatabaseBothDateTime(filterNumOfRecord, filterDatabaseSize, numOfRecord, year, month);
+    return monthExpenseDatabase.SUMExpense(filterNumOfRecord, expense);
+}
+
+double Database::SUMExpense(const int &numOfRecord, const bool &expense, const int year){
+    return this->SUMExpense(numOfRecord, expense, year, -1);
+}
+
+double Database::SUMExpenseByCharacter(const int &numOfRecord, const int &method, const string &keyword){
+    int filterNumOfRecord{0}, filterDatabaseSize{3}; 
+    Database expenseCharacterDatabase = this->filterDatabaseBykeyword(filterNumOfRecord, filterDatabaseSize, numOfRecord, method, keyword);
+    return expenseCharacterDatabase.SUM(filterNumOfRecord);
+}
+double Database::SUMExpenseByCharacter(const int &numOfRecord, const int &method, const string &keyword, const int year, const int month){
+    int filterNumOfRecord{0}, filterDatabaseSize{3}; 
+    Database monthExpenseCharacterDatabase = this->filterDatabaseBothDateTime(filterNumOfRecord, filterDatabaseSize, numOfRecord, year, month);
+    return monthExpenseCharacterDatabase.SUM(filterNumOfRecord);
+}
+double Database::SUMExpenseByCharacter(const int &numOfRecord, const int &method, const string &keyword, const int year){
+    return this->SUMExpenseByCharacter(numOfRecord, method, keyword, year, -1);
 }
 
 double Database::AVERAGE(const int &numOfRecord){
@@ -420,6 +420,22 @@ double Database::AVERAGE(const int &numOfRecord, const int year){
     return AVERAGE(numOfRecord, year, -1);
 }
 
+double Database::AVERAGEExpense(const int &numOfRecord, const bool &expense){
+    int filterNumOfRecord{0}, filterDatabaseSize{3}; 
+    Database averageDatabase = this->filterDatabaseExpense(filterNumOfRecord, filterDatabaseSize, numOfRecord, expense);
+    return averageDatabase.AVERAGE(filterNumOfRecord);
+}
+
+double Database::AVERAGEExpense(const int &numOfRecord, const bool &expense, const int year, const int month){
+    int filterNumOfRecord{0}, filterDatabaseSize{3}; 
+    Database monthAverageDatabase = this->filterDatabaseBothDateTime(filterNumOfRecord, filterDatabaseSize, numOfRecord, year, month);
+    return monthAverageDatabase.AVERAGEExpense(filterNumOfRecord, expense);
+}
+
+double Database::AVERAGEExpense(const int &numOfRecord, const bool &expense, const int year){
+    return this->AVERAGEExpense(numOfRecord, expense, year, -1);
+}
+
 double Database::MEDIAN(const int &numOfRecord){
     int medPos{numOfRecord/2};                                                 //find the central pos regardless of odd/even
     this->sortDatabase(numOfRecord, 1);
@@ -429,26 +445,61 @@ double Database::MEDIAN(const int &numOfRecord){
         return (this->database[medPos].getAmount() + this->database[medPos+1].getAmount())/2;               //no. of records = odd
 }
 
-//double Database::MEDIAN(const int &numOfRecord, const int month){
-//    int numOfRecordInMonth{this->recordInMonth(numOfRecord, month)}, medPos{numOfRecordInMonth/2};                 //find the central pos regardless of odd/even
-//    this->sortDatabase(numOfRecord, 1);
-//    if(numOfRecordInMonth % 2 == 0)                                                            
-//        return this->database[medPos].getAmount();                              //no. of records = even
-//    else                                                                                
-//        return (this->database[medPos].getAmount() + this->database[medPos+1].getAmount())/2;               //no. of records = odd
-//}
+double Database::MEDIAN(const int &numOfRecord, const int year, const int month){
+    int filterNumOfRecord{0}, filterDatabaseSize{3}; 
+    Database monthDatabase = this->filterDatabaseBothDateTime(filterNumOfRecord, filterDatabaseSize, numOfRecord, year, month);
+    return monthDatabase.MEDIAN(filterNumOfRecord);
+}
+
+double Database::MEDIAN(const int &numOfRecord, const int year){
+    return this->MEDIAN(numOfRecord, year, -1);
+}
+
+double Database::MEDIANExpense(const int &numOfRecord, const bool &expense){
+    int filterNumOfRecord{0}, filterDatabaseSize{3}; 
+    Database medianDatabase = this->filterDatabaseExpense(filterNumOfRecord, filterDatabaseSize, numOfRecord, expense);
+    return medianDatabase.MEDIAN(filterNumOfRecord);
+}
+
+double Database::MEDIANExpense(const int &numOfRecord, const bool &expense, const int year, const int month){
+    int filterNumOfRecord{0}, filterDatabaseSize{3}; 
+    Database monthMedianDatabase = this->filterDatabaseBothDateTime(filterNumOfRecord, filterDatabaseSize, numOfRecord, year, month);
+    return monthMedianDatabase.MEDIANExpense(filterNumOfRecord, expense);
+}
+
+double Database::MEDIANExpense(const int &numOfRecord, const bool &expense, const int year){
+    return this->MEDIANExpense(numOfRecord, expense, year, -1);
+}
 
 double Database::MIN(const int &numOfRecord){
     this->sortDatabase(numOfRecord, 1);
     return this->database[0].getAmount(); 
 }
 
-double Database::MIN(const int &numOfRecord, const int month){
-    int i{0};
-    this->sortDatabase(numOfRecord, 1);
-    while(this->database[i].getMonth() != month)
-        i++;
-    return this->database[i].getAmount(); 
+double Database::MIN(const int &numOfRecord, const int year, const int month){
+    int filterNumOfRecord{0}, filterDatabaseSize{3}; 
+    Database monthDatabase = this->filterDatabaseBothDateTime(filterNumOfRecord, filterDatabaseSize, numOfRecord, year, month);
+    return monthDatabase.MIN(filterNumOfRecord);
+}
+
+double Database::MIN(const int &numOfRecord, const int year){
+    return this->MIN(numOfRecord, year, -1);
+}
+
+double Database::MINExpense(const int &numOfRecord, const bool &expense){
+    int filterNumOfRecord{0}, filterDatabaseSize{3}; 
+    Database minDatabase = this->filterDatabaseExpense(filterNumOfRecord, filterDatabaseSize, numOfRecord, expense);
+    return minDatabase.MIN(filterNumOfRecord);
+}
+
+double Database::MINExpense(const int &numOfRecord, const bool &expense, const int year, const int month){
+    int filterNumOfRecord{0}, filterDatabaseSize{3}; 
+    Database monthMinDatabase = this->filterDatabaseBothDateTime(filterNumOfRecord, filterDatabaseSize, numOfRecord, year, month);
+    return monthMinDatabase.MINExpense(filterNumOfRecord, expense);
+}
+
+double Database::MINExpense(const int &numOfRecord, const bool &expense, const int year){
+    return this->MINExpense(numOfRecord, expense, year, -1);
 }
 
 double Database::MAX(const int &numOfRecord){
@@ -456,10 +507,32 @@ double Database::MAX(const int &numOfRecord){
     return this->database[0].getAmount(); 
 }
 
-double Database::MAX(const int &numOfRecord, const int month){
-    int i{0};
-    this->sortDatabase(numOfRecord, 2);
-    while(this->database[i].getMonth() != month)
-        i++;
-    return this->database[i].getAmount(); 
+double Database::MAX(const int &numOfRecord, const int year, const int month){
+    int filterNumOfRecord{0}, filterDatabaseSize{3}; 
+    Database monthDatabase = this->filterDatabaseBothDateTime(filterNumOfRecord, filterDatabaseSize, numOfRecord, year, month);
+    return monthDatabase.MAX(filterNumOfRecord);
+}
+
+double Database::MAX(const int &numOfRecord, const int year){
+    return this->MAX(numOfRecord, year, -1);
+}
+
+double Database::MAXExpense(const int &numOfRecord, const bool &expense){
+    int filterNumOfRecord{0}, filterDatabaseSize{3}; 
+    Database maxDatabase = this->filterDatabaseExpense(filterNumOfRecord, filterDatabaseSize, numOfRecord, expense);
+    return maxDatabase.MAX(filterNumOfRecord);
+}
+
+double Database::MAXExpense(const int &numOfRecord, const bool &expense, const int year, const int month){
+    int filterNumOfRecord{0}, filterDatabaseSize{3}; 
+    Database monthMaxDatabase = this->filterDatabaseBothDateTime(filterNumOfRecord, filterDatabaseSize, numOfRecord, year, month);
+    return monthMaxDatabase.MAXExpense(filterNumOfRecord, expense);
+}
+
+double Database::MAXExpense(const int &numOfRecord, const bool &expense, const int year){
+    return this->MAXExpense(numOfRecord, expense, year, -1);
+}
+
+double Database::percentageExpenseByCharacter(const int &numOfRecord, const int &method, const string &keyword){
+    return ((this->SUMExpenseByCharacter(numOfRecord, method, keyword))/(this->SUMExpense(numOfRecord, true))) * 100;
 }
