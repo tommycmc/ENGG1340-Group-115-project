@@ -52,6 +52,8 @@ public:
     int getHour() const;
     int getMinute() const;
     
+    bool isExpense() const;
+    
     //setter function//
     void setAmount(const double &inputAmount);
     void setCurrency(const string &inputCurrency);
