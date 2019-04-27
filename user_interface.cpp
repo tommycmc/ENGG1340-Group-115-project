@@ -13,42 +13,56 @@ int topMenu(void)
     cout << "4. Show record"            << endl;
     cout << "5. Exit"                   << endl;
     cin >> option;
+
+    return option;
 }
 
 Record menuAddRecord(void)
 {
-    double amount = 0.0;
-    string currency = "NA";
-    string characterOfPayment = "NA";
-    string typeOfPayment = "NA";
-    string bankName = "NA";
-    string accNoOfBank = "NA";
-    string date = "NA";
-    string time = "NA";
+    bool flag = true;
+    while (flag)
+    {
+        double amount = 0.0;
+        string currency = "NA";
+        string characterOfPayment = "NA";
+        string typeOfPayment = "NA";
+        string bankName = "NA";
+        string accNoOfBank = "NA";
+        string date = "NA";
+        string time = "NA";
 
-    cout << "1. Amount (+/-):                 ";
-    cin >> amount;
-    cout << "2. Currency:                     ";
-    cin >> currency;
-    cout << "3. Character of payment (Usage): ";
-    cin >> characterOfPayment;
-    cout << "4. Payment method:               ";
-    cin >> typeOfPayment;
-    cout << "5. Bank name:                    ";
-    cin >> bankName;
-    cout << "6. Account no.:                  ";
-    cin >> accNoOfBank;
-    cout << "7. Date (DDMMYYYY)               ";
-    cin >> date;
-    cout << "8. Time (HHMM)                   ";
-    cin >> time;
+        cout << "1. Amount (+/-):                 ";
+        cin >> amount;
+        cout << "2. Currency:                     ";
+        cin >> currency;
+        cout << "3. Character of payment (Usage): ";
+        cin >> characterOfPayment;
+        cout << "4. Payment method:               ";
+        cin >> typeOfPayment;
+        cout << "5. Bank name:                    ";
+        cin >> bankName;
+        cout << "6. Account no.:                  ";
+        cin >> accNoOfBank;
+        cout << "7. Date (DDMMYYYY)               ";
+        cin >> date;
+        cout << "8. Time (HHMM)                   ";
+        cin >> time;
 
-    cout << endl;
-    cout << "A new record was added." << endl;
-    cout << endl;
+        cout << endl;
+        cout << "A new record was added." << endl;
+        cout << endl;
 
-    return Record{amount, currency, characterOfPayment, typeOfPayment,
-                  bankName, accNoOfBank, date, time};
+        //add Record{amount, currency, characterOfPayment, typeOfPayment,
+        //            bankName, accNoOfBank, date, time};
+
+        cout << "Add another record? (y/n)" << endl;
+        char choice;
+        cin >> choice;
+        if (choice == 'n')
+            flag = false;
+        else
+            cout << endl;
+    }
 }
 
 void menuDelRecord(void)
@@ -67,6 +81,14 @@ void menuDelRecord(void)
         //delete record
     else
         //cancel delete action
+}
+
+void menuBatchDel(void) //delete multiple records one time
+{
+    cout << "List the record you want to delete (divide the numbers by space): " << endl;
+    int numOfRecord;
+    while (cin >> numOfRecord)
+        //delete numOfRecord
 }
 
 void menuEditRecord(void)
