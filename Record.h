@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <string>
+#include "utilityFunction.h"
 
 using namespace std;
 
@@ -17,6 +18,7 @@ private:                                    //for filter function ref from Datab
     string accNoOfBank;                     //5
     string Date;                            //6
     string Time;                            //7
+
 public:
     //Constructor//
     //Contructor - expect all 8 attributes(args)
@@ -61,8 +63,6 @@ public:
     
     //display function//
     void display() const;
-    
-    
 };
 
 #endif // _RECORD_H_
