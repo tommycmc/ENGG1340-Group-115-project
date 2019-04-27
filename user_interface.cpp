@@ -153,6 +153,42 @@ void menuDelRecord(void)
 void menuEditRecord(void)
 {
     //code for edit record
+    cout << "Which record you would like to edit?" << endl;
+    //list recent 10 record maybe? with number
+    //if want to edit older record, check showRecord function?
+    int numOfRecord;
+    cin >> numOfRecord;
+    //show detail of record here
+    cout << "1. Amount (+/-):                 " << amount << endl;
+    cout << "2. Currency:                     " << currency << endl;
+    cout << "3. Character of payment (Usage): " << characterOfPayment << endl;
+    cout << "4. Payment method:               " << typeOfPayment << endl;
+    cout << "5. Bank name:                    " << bankName << endl;
+    cout << "6. Account no.:                  " << accNoOfBank << endl;
+    cout << "7. Date (DDMMYYYY)               " << date << endl;
+    cout << "8. Time (HHMM)                   " << time << endl;
+
+    cout << "Which option you would like to edit? (1-8)" << endl;
+    int editOption;
+    cin >> editOption;
+    if(editOption == 1)
+
+    else if(editOption == 2)
+
+    else if(editOption == 3)
+
+    else if(editOption == 4)
+
+    else if(editOption == 5)
+
+    else if(editOption == 6)
+
+    else if(editOption == 7)
+
+    else if(editOption == 8)
+
+    else
+        //leave without change?
 }
 
 void menuShowRecord(void)
