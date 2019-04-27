@@ -39,7 +39,7 @@ The system also allows the user to display their records with certain filtering 
     The records could be added, deleted and edited at any time
 3.	Ability to display records according to user's preference <br/>
     The records could be displayed, filtered and sorted by certain criteria <br/>                                                           e.g. date, date and time, type, account, etc.
-4.	Statistical report of users’ financial state <br/>                                                                                       The system could display the summary report in certain period of time, e.g. 1 month, 3 months, half an year, a year, etc.
+4.	Statistical report of users’ financial state <br/>                                                                                       The system could display the summary report monthly and annually.
     e.g. monthly income and expenses, percentage of food expenses, etc.
 5.	Budget setting <br/>                                                                                                                     When expenses reach the budget, there should be an alert from the system
 6.	Data validation <br/>
