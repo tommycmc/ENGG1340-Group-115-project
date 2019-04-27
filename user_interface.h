@@ -3,21 +3,21 @@
 #include "Database.h"
 
 //user interface//
-int Database::topMenu(void);
-Record Database::menuAddRecord(void);
-void Database::menuDelRecord(void);
-void Database::menuBatchDel(void);
-void Database::menuEditRecord(void);
-void Database::menuShowRecord(void);
-void Database::menuExit(void);
+void topMenu(Database &database, int &databaseSize, int &numOfRecord);
+void menuAddRecord(Database &database, int &databaseSize, int &numOfRecord);
+void menuDelRecord(Database &database, int &databaseSize, int &numOfRecord);
+void menuBatchDel(Database &database, int &databaseSize, int &numOfRecord);
+void menuEditRecord(Database &database, int &databaseSize, int &numOfRecord);
+void menuSummaryReport(Database &database, int &databaseSize, int &numOfRecord);
+void menuExit(Database &database, int &databaseSize, int &numOfRecord);
 
 
 
 //report interface//
-void Database::summaryReportoutput(const int &numOfRecord, const int choice);
-void Database::summaryTotalReportoutput(const int &numOfRecord);
-void Database::summaryAnnualReportoutput(const int &numOfRecord, const int &year);
-void Database::summaryMonthlyReportoutput(const int &numOfRecord, const int &year, const int &month);
+void summaryReportoutput(Database &database, const int &numOfRecord, const int &choice);
+void summaryTotalReportoutput(Database &database, const int &numOfRecord);
+void summaryAnnualReportoutput(Database &database, const int &numOfRecord, const int &year);
+void summaryMonthlyReportoutput(Database &database, const int &numOfRecord, const int &year, const int &month);
 
 
 #endif // USER_INTERFACE_H
