@@ -27,7 +27,8 @@ public:
 
     //display function//
     void displayRecordWithPos(int &i);                                          //display 
-    void showDatabase(int &numOfRecord);                                        //display all the records in the database
+    void showDatabase(int &numOfRecord, int choice);                            //display all the records in the database, with specific sorting perference
+    void showDatabase(int &numOfRecord);                                        //default - amount ASC
     
 
     //insert function//
@@ -49,7 +50,17 @@ public:
 
 
     //filter function//
-    void filterShowDatabase(const int &numOfRecord, const int &choice);
+    Database filterDatabaseAmount(int &filterNumOfRecord, int &filterDatabaseSize, const int &originalNumOfRecord, const int min, const int max);
+    
+    bool filterMethodSeletor(const int &pos, const int &method, const string &keyword);
+    Database filterDatabaseBykeyword(int &filterNumOfRecord, int &filterDatabaseSize, const int &originalNumOfRecord, int method, string keyword);
+    
+    bool filterDateTimeSelector(int &pos, int &year, int &month, int &day, int &hour, int &minute);
+    Database filterDatabaseBothDateTime(int &filterNumOfRecord, int &filterDatabaseSize, const int &originalNumOfRecord, int year, int month, int day, int hour, int minute);
+    Database filterDatabaseBothDateTime(int &filterNumOfRecord, int &filterDatabaseSize, const int &originalNumOfRecord, int year);
+    Database filterDatabaseBothDateTime(int &filterNumOfRecord, int &filterDatabaseSize, const int &originalNumOfRecord, int year, int month);
+    Database filterDatabaseBothDateTime(int &filterNumOfRecord, int &filterDatabaseSize, const int &originalNumOfRecord, int year, int month, int day);
+    Database filterDatabaseBothDateTime(int &filterNumOfRecord, int &filterDatabaseSize, const int &originalNumOfRecord, int year, int month, int day, int hour);
 
 
     //sort function//
@@ -71,10 +82,18 @@ public:
     
     //aggregate fucniton//
     double SUM(const int &numOfRecord);
-    double AVERAGE(const int &numOfRecord);
-    double MEDIAN(const int &numOfRecord);
+    double SUM(const int &numOfRecord, const int year, const int month);
+    double SUM(const int &numOfRecord, const int year);
+    double AVERAGE(const int &numOfRecord);                                         //not yet below
+    double AVERAGE(const int &numOfRecord, const int year, const int month);
+    double AVERAGE(const int &numOfRecord, const int year);
+    double MEDIAN(const int &numOfRecord);                                          
+    double MEDIAN(const int &numOfRecord, const int month);             
     double MIN(const int &numOfRecord);
+    double MIN(const int &numOfRecord, const int month);
     double MAX(const int &numOfRecord);
+    double MAX(const int &numOfRecord, const int month);
+
 
     //interface
     
