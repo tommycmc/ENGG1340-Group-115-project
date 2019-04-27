@@ -1,5 +1,4 @@
 #include "Record.h"
-#include <iostream>
 
 //Contructor - expect all 8 attributes(args)//
 Record::Record(double inputAmount, string inputCurrency, string inputCharacterOfPayment, string inputTypeOfPayment, 
@@ -17,20 +16,20 @@ Record::Record()
 Record::Record(double inputAmount, string inputCurrency, string inputCharacterOfPayment, 
                         string inputTypeOfPayment, string inputAccNoOfBank, string inputDate, string inputTime)
     : Record{inputAmount, inputCurrency, inputCharacterOfPayment, inputTypeOfPayment, "NA", inputAccNoOfBank, inputDate, inputTime} {
-    bankName = "HSBC";  
-    cout << "added 1 record" << endl;
+    if(allToUpper(accNoOfBank) == "NULL")
+        bankName = "NULL";                          //need add code convertor
+    else
+        bankName = "HSBC";  
 }
 
 //Copy-constructor//
 Record::Record(const Record &source)
     : Record{source.Amount, source.Currency, source.characterOfPayment, source.typeOfPayment, source.bankName, 
                         source.accNoOfBank, source.Date, source.Time}{
-    cout << "used" << endl;
 }
 
 //Destructor//
 Record::~Record() {
-    cout << "delete 1 record" << endl;
 }
 
 
@@ -107,8 +106,13 @@ void Record::setTypeOfPayment(const string &inputTypeOfPayment){
         cout <<  "no change - not edit typeOfPayment field" << endl;
 }
 void Record::setAccNoOfBank(const string &inputAccNoOfBank){
-    if(accNoOfBank != inputAccNoOfBank)                                             //reject duplicate input value
+    if(accNoOfBank != inputAccNoOfBank){                                             //reject duplicate input value
+        if(allToUpper(inputAccNoOfBank) == "NULL")
+            bankName = "NULL";                          //need add code convertor
+        else
+            bankName = "HSBC";  
         accNoOfBank = inputAccNoOfBank;
+    }
     else
         cout << "no change - not edit accNoOfBank field" << endl;
 }
