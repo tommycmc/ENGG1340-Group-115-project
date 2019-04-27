@@ -1,5 +1,11 @@
 #include <iostream>
+#include <iomanip>
 #include <string>
+#include <vector>
+#include <cmath>
+#include "Record.h"
+#include "Database.h"
+#include "utilityFunction.h"
 
 using namespace std;
 
@@ -14,10 +20,18 @@ int topMenu(void)
     cout << "5. Exit"                   << endl;
     cin >> option;
 
-    return option;
+    if(option == 1)
+
+    else if(option == 2)
+
+    else if(option == 3)
+
+    else if(option == 4)
+
+    else if(option == 5)
 }
 
-Record menuAddRecord(void)
+void menuAddRecord(void)
 {
     bool flag = true;
     while (flag)
@@ -28,8 +42,8 @@ Record menuAddRecord(void)
         string typeOfPayment = "NA";
         string bankName = "NA";
         string accNoOfBank = "NA";
-        string date = "NA";
-        string time = "NA";
+        string Date = "NA";
+        string Time = "NA";
 
         cout << "1. Amount (+/-):                 ";
         cin >> amount;
@@ -44,15 +58,15 @@ Record menuAddRecord(void)
         cout << "6. Account no.:                  ";
         cin >> accNoOfBank;
         cout << "7. Date (DDMMYYYY)               ";
-        cin >> date;
+        cin >> Date;
         cout << "8. Time (HHMM)                   ";
-        cin >> time;
+        cin >> Time;
 
         cout << endl;
         cout << "A new record was added." << endl;
         cout << endl;
 
-        //add Record{amount, currency, characterOfPayment, typeOfPayment,
+        //addRecord{amount, currency, characterOfPayment, typeOfPayment,
         //            bankName, accNoOfBank, date, time};
 
         cout << "Add another record? (y/n)" << endl;
@@ -83,6 +97,7 @@ void menuDelRecord(void)
         //cancel delete action
 }
 
+//here is the batch delete function, use this replace upper one or having both?
 void menuBatchDel(void) //delete multiple records one time
 {
     cout << "List the record you want to delete (divide the numbers by space): " << endl;
