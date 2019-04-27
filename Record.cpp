@@ -77,6 +77,9 @@ int Record::getMinute() const{
     return stoi(Time.substr(2, 2));                                         //capture last 2 characters,remove leading zero, and turn it into int
 }
 
+bool Record::isExpense() const{
+    return (Amount <= 0);
+}
 
 
 
