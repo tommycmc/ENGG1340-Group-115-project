@@ -38,12 +38,14 @@ void Database::displayRecordWithPos(int &i){
     this->database[i].display();
 }
 
-void Database::showDatabase(int &numOfRecord){
-    this->sortDatabase(numOfRecord, 1);
+void Database::showDatabase(int &numOfRecord, int choice){
+    this->sortDatabase(numOfRecord, choice);
     for(int i{0}; i<numOfRecord; i++)
         displayRecordWithPos(i);
 }
-
+void Database::showDatabase(int &numOfRecord){
+    return showDatabase(numOfRecord, 1);
+}
 
 //insert function//
 void Database::insertBackRecordWithoutEnlarge(Record &newRecord, int &numOfRecord, int &databaseSize){
@@ -104,71 +106,129 @@ void Database::deleteRecord(int pos, int &numOfRecord, int &databaseSize){
         this->skipRecord(pos, numOfRecord, databaseSize);
 }
 
+//filter input function - temp//
+//    string keyword{""}, inputDay{"1"}, inputMonth{"1"}, inputYear{"1980"}, inputHour{"12"}, inputMinute{"59"};          //need to seperate request function to 
+//    int min{0}, max{0}, day{1}, month{1}, year{1980}, hour{12}, minute{59};                                             //another function
+//    if(choice == 2 || choice == 3 || choice == 4 || choice == 5){
+//        cout << "What's your filtered word?" << endl;
+//        cin >> keyword;
+//    }
+//    else if(choice == 1){
+//        cout << "Minimum: ";
+//        cin >> min;
+//        cout << "Maximum: ";
+//        cin >> max;
+//    }
+//    else if(choice == 6){
+//        cout << "Day: ";
+//        cin >> inputDay;
+//        day = stoi(inputDay);
+//        cout << "\nMonth: ";
+//        cin >> inputMonth;
+//        month = stoi(inputMonth);
+//        cout << "\nYear: ";
+//        cin >> inputYear;
+//        year = stoi(inputYear);
+//    }
+//    else if(choice == 7){
+//        month = 4;
+//    }
+//    else if(choice == 8){
+//        cout << "Hour: ";
+//        cin >> inputHour;
+//        hour = stoi(inputHour);
+//        cout << "Minute: ";
+//        cin >> inputMinute;
+//        minute = stoi(inputMinute);
+//    }
 
 //filter function//
-void Database::filterShowDatabase(const int &numOfRecord, const int &choice){
-    this->sortDatabase(numOfRecord, 1);
-    string keyword{""}, inputDay{"1"}, inputMonth{"1"}, inputYear{"1980"}, inputHour{"12"}, inputMinute{"59"};          //need to seperate request function to 
-    int min{0}, max{0}, day{1}, month{1}, year{1980}, hour{12}, minute{59};                                             //another function
-    if(choice == 2 || choice == 3 || choice == 4 || choice == 5){
-        cout << "What's your filtered word?" << endl;
-        cin >> keyword;
-    }
-    else if(choice == 1){
-        cout << "Minimum: ";
-        cin >> min;
-        cout << "Maximum: ";
-        cin >> max;
-    }
-    else if(choice == 6){
-        cout << "Day: ";
-        cin >> inputDay;
-        day = stoi(inputDay);
-        cout << "\nMonth: ";
-        cin >> inputMonth;
-        month = stoi(inputMonth);
-        cout << "\nYear: ";
-        cin >> inputYear;
-        year = stoi(inputYear);
-    }
-    else if(choice == 7){
-        cout << "Hour: ";
-        cin >> inputHour;
-        hour = stoi(inputHour);
-        cout << "Minute: ";
-        cin >> inputMinute;
-        minute = stoi(inputMinute);
-    }
+Database Database::filterDatabaseAmount(int &filterNumOfRecord, int &filterDatabaseSize, const int &originalNumOfRecord, const int min, const int max){
+    //create temp database -> filter out the original database -> save to temp database -> return temp database
     
-    if(choice >= 0 && choice <= 7){
-        for(int i{0}; i<numOfRecord; i++){
-            switch(choice){
-                case 1:     if(this->database[i].getAmount() >= min && this->database[i].getAmount() <= max)
-                                displayRecordWithPos(i);
-                            break;
-                case 2:     if(this->database[i].getCharacterOfPayment() == keyword)
-                                displayRecordWithPos(i);
-                            break;
-                case 3:     if(this->database[i].getTypeOfPayment() == keyword)
-                                displayRecordWithPos(i);      
-                            break;
-                case 4:     if(this->database[i].getBankName().find(keyword) != string::npos)
-                                displayRecordWithPos(i); 
-                            break;
-                case 5:     if(this->database[i].getAccNoOfBank() == keyword)
-                                displayRecordWithPos(i);                
-                            break;
-                case 6:     if(this->database[i].getDay() == day && this->database[i].getMonth() == month && this->database[i].getYear() == year)   //+ range
-                                displayRecordWithPos(i);  
-                            break;
-                case 7:     if(this->database[i].getHour() == hour && this->database[i].getMinute() == minute)          //+ range
-                                displayRecordWithPos(i);  
-                            break;
-                default:    break;
-            }
-        }
+    Database filterDatabase = Database(filterDatabaseSize);
+    for(int i{0}; i<originalNumOfRecord; i++){
+        if(this->database[i].getAmount() >= min && this->database[i].getAmount() <= max)
+            filterDatabase.addRecord(this->database[i], filterNumOfRecord, filterDatabaseSize);
     }
+    return filterDatabase;
 }
+
+bool Database::filterMethodSeletor(const int &pos, const int &method, const string &keyword){
+    switch(method){
+        case 1:     if(this->database[pos].getCharacterOfPayment() == keyword)
+                        return true;
+                    break;
+        case 2:     if(this->database[pos].getTypeOfPayment() == keyword)
+                        return true;
+                    break;
+        case 3:     if(this->database[pos].getBankName().find(keyword) != string::npos)
+                        return true;
+                    break;
+        case 4:     if(this->database[pos].getAccNoOfBank().find(keyword) != string::npos)
+                        return true;
+                    break;
+    }
+    return false;
+}
+
+Database Database::filterDatabaseBykeyword(int &filterNumOfRecord, int &filterDatabaseSize, const int &originalNumOfRecord, int method, string keyword){
+    Database filterDatabase = Database(filterDatabaseSize);
+    
+    for(int i{0}; i<originalNumOfRecord; i++){
+        if(this->filterMethodSeletor(i, method, keyword))
+            filterDatabase.addRecord(this->database[i], filterNumOfRecord, filterDatabaseSize);
+    }
+    return filterDatabase;
+}
+
+bool Database::filterDateTimeSelector(int &pos, int &year, int &month, int &day, int &hour, int &minute){
+    if(month == -1 && day == -1 && hour == -1 && minute == -1){
+        if(this->database[pos].getYear() == year)
+            return true;
+    }
+    if(day == -1 && hour == -1 && minute == -1){
+        if(this->database[pos].getYear() == year && this->database[pos].getMonth() == month)
+            return true; 
+    }
+    if(hour == -1 && minute == -1){
+        if(this->database[pos].getYear() == year && this->database[pos].getMonth() == month && this->database[pos].getDay() == day)
+            return true; 
+    }
+    if(minute == -1){
+        if(this->database[pos].getYear() == year && this->database[pos].getMonth() == month && this->database[pos].getDay() == day
+                                                && this->database[pos].getHour() == hour)
+            return true; 
+    }
+    if(this->database[pos].getYear() == year && this->database[pos].getMonth() == month && this->database[pos].getDay() == day
+                                                && this->database[pos].getHour() == hour && this->database[pos].getMinute() == minute){
+            return true;
+    }
+    return false;
+}
+
+Database Database::filterDatabaseBothDateTime(int &filterNumOfRecord, int &filterDatabaseSize, const int &originalNumOfRecord, int year, int month, int day, int hour, int minute){
+    Database filterDatabase = Database(filterDatabaseSize);
+    for(int i{0}; i<originalNumOfRecord; i++){
+        if(this->filterDateTimeSelector(i, year, month, day, hour, minute))
+            filterDatabase.addRecord(this->database[i], filterNumOfRecord, filterDatabaseSize);
+    }
+    return filterDatabase;
+}
+Database Database::filterDatabaseBothDateTime(int &filterNumOfRecord, int &filterDatabaseSize, const int &originalNumOfRecord, int year){
+    return filterDatabaseBothDateTime(filterNumOfRecord, filterDatabaseSize, originalNumOfRecord, year, -1, -1, -1, -1);
+}
+Database Database::filterDatabaseBothDateTime(int &filterNumOfRecord, int &filterDatabaseSize, const int &originalNumOfRecord, int year, int month){
+    return filterDatabaseBothDateTime(filterNumOfRecord, filterDatabaseSize, originalNumOfRecord, year, month, -1, -1, -1);
+}
+Database Database::filterDatabaseBothDateTime(int &filterNumOfRecord, int &filterDatabaseSize, const int &originalNumOfRecord, int year, int month, int day){
+    return filterDatabaseBothDateTime(filterNumOfRecord, filterDatabaseSize, originalNumOfRecord, year, month, day, -1, -1);
+}
+Database Database::filterDatabaseBothDateTime(int &filterNumOfRecord, int &filterDatabaseSize, const int &originalNumOfRecord, int year, int month, int day, int hour){
+    return filterDatabaseBothDateTime(filterNumOfRecord, filterDatabaseSize, originalNumOfRecord, year, month, day, hour, -1);
+}
+
+
 
 
 //sort function//
@@ -335,9 +395,30 @@ double Database::SUM(const int &numOfRecord){
     return totalAmount;
 }
 
+double Database::SUM(const int &numOfRecord, const int year, const int month){
+    int filterNumOfRecord{0}, filterDatabaseSize{3}; 
+    double totalAmount{0.0};
+    Database monthDatabase = this->filterDatabaseBothDateTime(filterNumOfRecord, filterDatabaseSize, numOfRecord, year, month);
+    for(int i{0}; i<filterNumOfRecord; i++)
+        totalAmount += monthDatabase.getAddress()[i].getAmount();              //traverse all records in filtered Database, add add amount to totalAmount
+    return filterNumOfRecord;
+}
+
+double Database::SUM(const int &numOfRecord, const int year){
+    return this->SUM(numOfRecord, year, -1);
+}
+
 double Database::AVERAGE(const int &numOfRecord){
     return this->SUM(numOfRecord)/numOfRecord;                                 //use SUM function to get total amount, then divide it 
 }                                                                              //by the no. of record we have
+double Database::AVERAGE(const int &numOfRecord, const int year, const int month){
+    int filterNumOfRecord{0}, filterDatabaseSize{3}; 
+    Database monthDatabase = this->filterDatabaseBothDateTime(filterNumOfRecord, filterDatabaseSize, numOfRecord, year, month);
+    return monthDatabase.AVERAGE(filterNumOfRecord);
+}
+double Database::AVERAGE(const int &numOfRecord, const int year){
+    return AVERAGE(numOfRecord, year, -1);
+}
 
 double Database::MEDIAN(const int &numOfRecord){
     int medPos{numOfRecord/2};                                                 //find the central pos regardless of odd/even
@@ -348,12 +429,37 @@ double Database::MEDIAN(const int &numOfRecord){
         return (this->database[medPos].getAmount() + this->database[medPos+1].getAmount())/2;               //no. of records = odd
 }
 
+//double Database::MEDIAN(const int &numOfRecord, const int month){
+//    int numOfRecordInMonth{this->recordInMonth(numOfRecord, month)}, medPos{numOfRecordInMonth/2};                 //find the central pos regardless of odd/even
+//    this->sortDatabase(numOfRecord, 1);
+//    if(numOfRecordInMonth % 2 == 0)                                                            
+//        return this->database[medPos].getAmount();                              //no. of records = even
+//    else                                                                                
+//        return (this->database[medPos].getAmount() + this->database[medPos+1].getAmount())/2;               //no. of records = odd
+//}
+
 double Database::MIN(const int &numOfRecord){
     this->sortDatabase(numOfRecord, 1);
     return this->database[0].getAmount(); 
 }
 
+double Database::MIN(const int &numOfRecord, const int month){
+    int i{0};
+    this->sortDatabase(numOfRecord, 1);
+    while(this->database[i].getMonth() != month)
+        i++;
+    return this->database[i].getAmount(); 
+}
+
 double Database::MAX(const int &numOfRecord){
     this->sortDatabase(numOfRecord, 2);
     return this->database[0].getAmount(); 
+}
+
+double Database::MAX(const int &numOfRecord, const int month){
+    int i{0};
+    this->sortDatabase(numOfRecord, 2);
+    while(this->database[i].getMonth() != month)
+        i++;
+    return this->database[i].getAmount(); 
 }
