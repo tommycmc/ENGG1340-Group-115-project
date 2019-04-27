@@ -62,6 +62,8 @@ public:
     Database filterDatabaseBothDateTime(int &filterNumOfRecord, int &filterDatabaseSize, const int &originalNumOfRecord, int year, int month, int day);
     Database filterDatabaseBothDateTime(int &filterNumOfRecord, int &filterDatabaseSize, const int &originalNumOfRecord, int year, int month, int day, int hour);
 
+    Database filterDatabaseExpense(int &filterNumOfRecord, int &filterDatabaseSize, const int &originalNumOfRecord, const bool &expense);
+
 
     //sort function//
     bool amountCondAsc(int &i, int &j);
@@ -84,15 +86,39 @@ public:
     double SUM(const int &numOfRecord);
     double SUM(const int &numOfRecord, const int year, const int month);
     double SUM(const int &numOfRecord, const int year);
-    double AVERAGE(const int &numOfRecord);                                         //not yet below
+    double SUMExpense(const int &numOfRecord, const bool &expense);
+    double SUMExpense(const int &numOfRecord, const bool &expense, const int year, const int month);
+    double SUMExpense(const int &numOfRecord, const bool &expense, const int year);
+    double SUMExpenseByCharacter(const int &numOfRecord, const int &method, const string &keyword);
+    double SUMExpenseByCharacter(const int &numOfRecord, const int &method, const string &keyword, const int year, const int month);
+    double SUMExpenseByCharacter(const int &numOfRecord, const int &method, const string &keyword, const int year);
+    double AVERAGE(const int &numOfRecord);
     double AVERAGE(const int &numOfRecord, const int year, const int month);
     double AVERAGE(const int &numOfRecord, const int year);
-    double MEDIAN(const int &numOfRecord);                                          
-    double MEDIAN(const int &numOfRecord, const int month);             
+    double AVERAGEExpense(const int &numOfRecord, const bool &expense);
+    double AVERAGEExpense(const int &numOfRecord, const bool &expense, const int year, const int month);
+    double AVERAGEExpense(const int &numOfRecord, const bool &expense, const int year);
+    double MEDIAN(const int &numOfRecord);
+    double MEDIAN(const int &numOfRecord, const int year, const int month);                     
+    double MEDIAN(const int &numOfRecord, const int year); 
+    double MEDIANExpense(const int &numOfRecord, const bool &expense);
+    double MEDIANExpense(const int &numOfRecord, const bool &expense, const int year, const int month);
+    double MEDIANExpense(const int &numOfRecord, const bool &expense, const int year);
     double MIN(const int &numOfRecord);
-    double MIN(const int &numOfRecord, const int month);
+    double MIN(const int &numOfRecord, const int year, const int month);
+    double MIN(const int &numOfRecord, const int year);
     double MAX(const int &numOfRecord);
-    double MAX(const int &numOfRecord, const int month);
+    double MAX(const int &numOfRecord, const int year, const int month);
+    double MAX(const int &numOfRecord, const int year);
+    double MINExpense(const int &numOfRecord, const bool &expense);
+    double MINExpense(const int &numOfRecord, const bool &expense, const int year, const int month);
+    double MINExpense(const int &numOfRecord, const bool &expense, const int year);
+    double MAXExpense(const int &numOfRecord, const bool &expense);
+    double MAXExpense(const int &numOfRecord, const bool &expense, const int year, const int month);
+    double MAXExpense(const int &numOfRecord, const bool &expense, const int year);
+    
+    double percentageExpenseByCharacter(const int &numOfRecord, const int &method, const string &keyword);
+
 
 
     //interface
