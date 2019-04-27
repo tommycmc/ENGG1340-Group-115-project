@@ -144,3 +144,23 @@ Record menuAddRecord(void)
     return Record{amount, currency, characterOfPayment, typeOfPayment,
                   bankName, accNoOfBank, date, time};
 }
+
+void menuDelRecord(void)
+{
+    //delete a record
+}
+
+void menuEditRecord(void)
+{
+    //code for edit record
+}
+
+void menuShowRecord(void)
+{
+    //use report interface?
+}
+
+void menuExit(void)
+{
+    //Exit option, save database to txt file before leaving
+}
