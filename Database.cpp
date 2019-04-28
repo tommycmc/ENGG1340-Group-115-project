@@ -1,13 +1,12 @@
 #include "Database.h"
 
+
 Database::Database(int &databaseSize) {
     this->database = new Record[databaseSize];                //create dynamic array according to defined database size 
-//    cout << "created database" << endl;
 }
 
 Database::~Database() {
     delete [] this->database;                                 //release database (record pointer) properly.
-//    cout << "deleted database" << endl;
 }
 
 //getter function//
@@ -34,7 +33,7 @@ void Database::manDelDatabase(){
 
 //display function//
 void Database::displayRecordWithPos(int &i){
-    cout << i << " ";
+    cout << i << "\t";
     this->database[i].display();
 }
 
@@ -325,9 +324,8 @@ void Database::singleMerge(int left, int mid, int right, int &choice){
     Database tempDatabase = Database(z);                                            //temporary database
     int i = left, j = mid + 1;                                                      //i is for left-hand side, j is for right-hand side
     int k = 0;                                                                      //k is the index for the temporary database
-    while(i <= mid && j <=right){
+    while(i <= mid && j <=right){                                                   //We adapt the algorithm from http://www.codebind.com/cpp-tutorial/cpp-example-merge-sort-algorithm/ and https://www.geeksforgeeks.org/merge-sort/
         if(sortSelector(i, j, choice))
-
             tempDatabase.getAddress()[k++] = this->database[i++];
         else
             tempDatabase.getAddress()[k++] = this->database[j++];
@@ -439,7 +437,7 @@ double Database::AVERAGEExpense(const int &numOfRecord, const bool &expense, con
 double Database::MEDIAN(const int &numOfRecord){
     int medPos{numOfRecord/2};                                                 //find the central pos regardless of odd/even
     this->sortDatabase(numOfRecord, 1);
-    if(numOfRecord % 2 == 0)                                                            
+    if(numOfRecord % 2 == 0 || numOfRecord <= 1)                                                            
         return this->database[medPos].getAmount();                              //no. of records = even
     else                                                                                
         return (this->database[medPos].getAmount() + this->database[medPos+1].getAmount())/2;               //no. of records = odd
@@ -536,3 +534,8 @@ double Database::MAXExpense(const int &numOfRecord, const bool &expense, const i
 double Database::percentageExpenseByCharacter(const int &numOfRecord, const int &method, const string &keyword){
     return ((this->SUMExpenseByCharacter(numOfRecord, method, keyword))/(this->SUMExpense(numOfRecord, true))) * 100;
 }
+
+
+
+
+
