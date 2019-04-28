@@ -3,11 +3,15 @@
 
 #include <iostream>
 #include <string>
+#include <fstream>
+#include <sstream>
+#include <iomanip>
 #include "utilityFunction.h"
 
 using namespace std;
 
 class Record {
+    friend ostream &operator<<(ostream &os, const Record &record);
 private:                                    //for filter function ref from Database.h
     double Amount;                          //1
     string Currency;                                        //need currency conversion table txt - from https://www.xe.com/zh-HK/currencytables/?from=USD&date=2019-04-01
