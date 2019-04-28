@@ -1,0 +1,154 @@
+﻿003 Standard Chartered Bank (Hong Kong) Limited
+004 The Hongkong and Shanghai Banking Corporation Limited
+005 Credit Agricole Corporate and Investment Bank
+006 Citibank N.A.
+007 JPMorgan Chase Bank N.A.
+008 The Royal Bank of Scotland plc
+009 China Construction Bank (Asia) Corporation Limited
+012 Bank of China (Hong Kong) Limited
+015 The Bank of East Asia Limited
+016 DBS Bank (Hong Kong) Limited
+018 China CITIC Bank International Limited
+020 Wing Lung Bank Ltd.
+022 Oversea-Chinese Banking Corporation Ltd.
+024 Hang Seng Bank Ltd.
+025 Shanghai Commercial Bank Ltd.
+027 Bank of Communications Co. Ltd.
+028 Public Bank (Hong Kong) Limited
+035 OCBC Wing Hang Bank Limited
+038 Tai Yau Bank Ltd.
+039 Chiyu Banking Corporation Ltd.
+040 Dah Sing Bank Ltd.
+041 Chong Hing Bank Limited
+043 Nanyang Commercial Bank Ltd.
+045 UCO Bank
+046 KEB Hana Bank
+047 The Bank of Tokyo-Mitsubishi UFJ Ltd.
+049 Bangkok Bank Public Company Limited
+050 Indian Overseas Bank
+054 Deutsche Bank AG
+055 Bank of America N.A.
+056 BNP Paribas
+058 Bank of India
+060 National Bank of Pakistan
+061 Tai Sang Bank Limited
+063 Malayan Banking Berhad (Maybank)
+065 Sumitomo Mitsui Banking Corporation
+066 PT. Bank Negara Indonesia (Persero) Tbk.
+067 BDO Unibank Inc.
+071 United Overseas Bank Ltd.
+072 Industrial and Commercial Bank of China (Asia) Limited
+074 Barclays Bank Plc.
+076 The Bank of Nova Scotia
+080 Royal Bank of Canada
+081 Societe Generale
+082 State Bank of India
+085 The Toronto-Dominion Bank
+086 Bank of Montreal
+092 Canadian Imperial Bank of Commerce
+097 Commerzbank AG
+103 UBS AG Hong Kong
+106 HSBC Bank USA N.A.
+109 Mizuho Bank Ltd. Hong Kong Branch
+113 DZ BANK AG Deutsche Zentral-Genossenschaftsbank
+118 Woori Bank
+119 Philippine National Bank
+128 Fubon Bank (Hong Kong) Limited
+138 Mitsubishi UFJ Trust and Banking Corporation
+139 The Bank of New York Mellon
+145 ING Bank N.V.
+147 Banco Bilbao Vizcaya Argentaria S.A.
+150 National Australia Bank Limited
+151 Westpac Banking Corporation
+152 Australia and New Zealand Banking Group Ltd.
+153 Commonwealth Bank of Australia
+161 Intesa Sanpaolo S.p.A.
+164 UniCredit Bank AG
+165 Svenska Handelsbanken AB (publ)
+170 The Chiba Bank Ltd.
+178 KBC Bank N.V. Hong Kong Branch
+180 Wells Fargo Bank N.A. Hong Kong Branch
+183 Coöperatieve Rabobank U.A.
+185 DBS Bank Ltd Hong Kong Branch
+186 The Shizuoka Bank Ltd.
+188 The Hachijuni Bank Ltd.
+198 Hua Nan Commercial Bank Ltd.
+199 The Shiga Bank Ltd.
+201 Bank of Taiwan
+202 The Chugoku Bank Limited
+203 First Commercial Bank
+205 Coutts & Co. Ltd.
+206 Chang Hwa Commercial Bank Ltd.
+210 Natixis
+214 Industrial and Commercial Bank of China Limited
+220 State Street Bank and Trust Company
+221 China Construction Bank Corporation
+222 Agricultural Bank of China Limited
+224 The Iyo Bank Ltd. Hong Kong Branch
+227 Erste Group Bank AG
+229 CTBC Bank Co. Ltd.
+230 Taiwan Business Bank Hong Kong Branch
+233 Credit Suisse AG
+234 Banca Monte dei Paschi di Siena S.p.A. Hong Kong Branch
+235 HSBC Private Bank (Suisse) SA
+236 Cathay United Bank Company Limited
+237 EFG Bank AG
+238 China Merchants Bank Co. Ltd.
+239 Taipei Fubon Commercial Bank Co. Ltd.
+241 Bank SinoPac
+242 Mega International Commercial Bank Co. Ltd.
+243 E.Sun Commercial Bank Ltd.
+245 Taishin International Bank Co. Ltd.
+248 Hong Leong Bank Berhad
+249 Standard Chartered Bank Hong Kong Branch
+250 Citibank (Hong Kong) Limited
+251 ICICI Bank Limited
+254 Melli Bank plc
+256 Allahabad Bank
+258 East West Bank
+259 Bank of Baroda
+260 Far Eastern International Bank
+261 Axis Bank Limited
+262 Canara Bank
+263 Cathay Bank
+264 Land Bank of Taiwan Co. Ltd.
+265 Taiwan Cooperative Bank Ltd.
+266 Punjab National Bank
+267 Banco Santander S.A.
+268 Union Bank of India
+269 The Shanghai Commercial & Savings Bank Ltd.
+271 Industrial Bank of Korea
+272 Bank of Singapore Limited
+273 Shinhan Bank
+274 O-Bank Co. Ltd.
+275 BNP Paribas Securities Services
+276 China Development Bank
+277 First Abu Dhabi Bank PJSC
+278 Bank J. Safra Sarasin Ltd.
+307 ABN AMRO Bank N.V.
+308 HDFC Bank Limited
+309 Union Bancaire Privee UBP SA
+316 Skandinaviska Enskilda Banken AB
+320 Bank Julius Baer & Co. Ltd.
+324 Credit Industriel et Commercial
+337 Taiwan Shin Kong Commercial Bank Co. Ltd.
+338 Bank of China Limited Hong Kong Branch
+339 CA Indosuez (Switzerland) SA
+341 ICBC Standard Bank PLC
+342 LGT Bank AG
+344 Macquarie Bank Limited
+345 Shanghai Pudong Development Bank Co. Ltd.
+353 China Minsheng Banking Corp. Ltd.
+357 Pictet & Cie (Europe) S.A.
+360 The Royal Bank of Scotland N.V.
+368 China Everbright Bank Co. Ltd.
+371 Sumitomo Mitsui Trust Bank Limited
+372 Bank of Shanghai (Hong Kong) Limited
+374 CIMB Bank Berhad
+377 Industrial Bank Co. Ltd.
+378 Yuanta Commercial Bank Co. Ltd.
+379 Mashreq Bank - Public Shareholding Company
+381 Kookmin Bank
+382 Bank of Communications (Hong Kong) Limited
+868 CLS Bank International
+//Extracted from https://www.wfsfaa.gov.hk/sfo/pdf/common/Form/tsfs/bank_code.pdf
