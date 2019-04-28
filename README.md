@@ -33,8 +33,8 @@ The system also allows the user to display their records with certain filtering 
 
 
 ## Features
-1.	Data initialization and reset <br/>
-    User could initialize the basic information or reset the system to original state
+1.	Data initialization<br/>
+    User could initialize the basic information
 2.	Ability to control records  <br/>
     The records could be added, deleted and edited at any time
 3.	Ability to display records according to user's preference <br/>
@@ -47,5 +47,3 @@ The system also allows the user to display their records with certain filtering 
     e.g. If the amount of account is negative, no further deposit will be allowed.
 7.	User-friendly design <br/>
     Operation code can be entered no matter it is uppercase or lowercase alphabetic characters, in different formats, field could be auto-filled <br/>                                                                                                                           e.g. C/H/A or c/h/a, auto-correct the format of date, time clock, account number, currency of bank entered by the user, auto-fill       the name of the bank, etc
-8.	Cached result <br/>
-    Once the user requests sorting list of data, the content of sorted list will be place in elsewhere. <br/>                               If the records in the system doesn’t change, and the user requests the records by the same filtered and sorting method, the cached       result will be displayed without searching the entire records in the system.
