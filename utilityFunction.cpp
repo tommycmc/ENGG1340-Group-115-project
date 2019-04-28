@@ -33,9 +33,12 @@ std::string dateExtract(std::string date)             //convert date format like
 
         return temp;
     }
+    else if(date.length() == 8){
+        return date;
+    }
     else
     {
-        cout << "Incorrect date format" << endl;
+        cout << "\nIncorrect date format" << endl;
         return "NA";
     }
 }
@@ -48,27 +51,27 @@ bool checkDate(std::string date)                 //check if date input is valid 
     int year  = stoi(date.substr(4,4));
     if(month>12 || month==0)
     {
-        cout << "Invalid month! (month > 12)" << endl;
+        cout << "\nInvalid month! (month > 12)" << endl;
         return false;
     }
     else if(day>31 || day==0)
     {
-        cout << "Invalid day! (day > 31)" << endl;
+        cout << "\nInvalid day! (day > 31)" << endl;
         return false;
     }
     else if((month == 4 || month == 6 || month == 9 || month == 11) && day>30)
     {
-        cout << "Invalid day! (day > 30 in small month)" << endl;
+        cout << "\nInvalid day! (day > 30 in small month)" << endl;
         return false;
     }
     else if(month==2 && year%4!=0 && day>28)
     {
-        cout << "Invalid day! (day > 28 in normal Feb)" << endl;
+        cout << "\nInvalid day! (day > 28 in normal Feb)" << endl;
         return false;
     }
     else if(month==2 && year%4==0 && day>29)
     {
-        cout << "Invalid day! (day > 29 in Feb of leap year)" << endl;
+        cout << "\nInvalid day! (day > 29 in Feb of leap year)" << endl;
         return false;
     }
     else
