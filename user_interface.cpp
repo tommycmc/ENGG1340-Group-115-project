@@ -135,9 +135,11 @@ void menuEditRecord(Database &database, int &databaseSize, int &numOfRecord)    
         cin >> inputAmount;
         
         cout << "Currency: "
-        string currency{""};
+        string inputCurrency{""};
+        cin >> inputCurrency;
         
         database.getAddress()[targetRecord].setAmount(inputAmount);
+        database.getAddress()[targetRecord].setCurrency(inputCurrency);
         
     }
     else if(editOption == 2){
