@@ -15,11 +15,45 @@ Record::Record()
 //Contructor - expect 7 attributes(args)//
 Record::Record(double inputAmount, string inputCurrency, string inputCharacterOfPayment, 
                         string inputTypeOfPayment, string inputAccNoOfBank, string inputDate, string inputTime)
-    : Record{inputAmount, inputCurrency, inputCharacterOfPayment, inputTypeOfPayment, "NA", inputAccNoOfBank, inputDate, inputTime} {
+    : Record{inputAmount, allToUpper(inputCurrency), allToUpper(inputCharacterOfPayment), allToUpper(inputTypeOfPayment), "NA", inputAccNoOfBank, dateExtract(inputDate), inputTime} {
     if(allToUpper(accNoOfBank) == "NULL")
-        bankName = "NULL";                          //need add code convertor
-    else
-        bankName = "HSBC";  
+        bankName = "NULL";                          
+    else{        
+        ifstream bankCodeConvertFile{"../bankCodeConvert.txt"};            //Assume the file is existed
+        string bankCode{accNoOfBank.substr(0, 3)};
+        
+        string searchBankCode{""};
+        string line{""};
+        
+        while(getline(bankCodeConvertFile, line)){
+            stringstream sLine{line};
+            sLine >> searchBankCode;
+            if(searchBankCode == bankCode){
+                getline(sLine, bankName);
+                bankName = bankName.substr(1);
+                break;
+            }
+        }
+        bankCodeConvertFile.close();
+    }
+    
+    if(allToUpper(Currency) != "HKD"){
+        ifstream currencyConvertFile{"../currencyConvert.txt"};            //Assume the file is existed
+        string extCurrency{""};
+        double exchangeRate{-1.0};
+        while(currencyConvertFile >> extCurrency >> exchangeRate){
+            if(extCurrency == allToUpper(Currency)){
+                Amount *= exchangeRate;
+                Currency = "HKD";
+                break;
+            }
+        }
+        if(exchangeRate == -1.0)
+            Currency = "NA";
+        
+        currencyConvertFile.close();
+    }
+     
 }
 
 //Copy-constructor//
@@ -91,11 +125,28 @@ void Record::setAmount(const double &inputAmount){
         cout << "no change - not edit amount field" << endl;
 }
 void Record::setCurrency(const string &inputCurrency){
-    if(Currency != inputCurrency)                                                   //reject duplicate input value
-        Currency = inputCurrency;
+    if(Currency != inputCurrency){                                                //reject duplicate input value
+        if(allToUpper(Currency) != "HKD"){
+            ifstream currencyConvertFile{"../currencyConvert.txt"};            //Assume the file is existed
+            string extCurrency{""};
+            double exchangeRate{-1.0};
+            while(currencyConvertFile >> extCurrency >> exchangeRate){
+                if(extCurrency == allToUpper(Currency)){
+                    Amount *= exchangeRate;
+                    Currency = "HKD";
+                    break;
+                }
+            }
+            if(exchangeRate == -1.0)
+                Currency = "NA";
+            
+            currencyConvertFile.close();
+        }
     else
         cout << "no change - not edit currency field" << endl;
+    }
 }
+
 void Record::setCharacterOfPayment(const string &inputCharacterOfPayment){
     if(characterOfPayment != inputCharacterOfPayment)                               //reject duplicate input value
         characterOfPayment = inputCharacterOfPayment;
@@ -110,11 +161,29 @@ void Record::setTypeOfPayment(const string &inputTypeOfPayment){
 }
 void Record::setAccNoOfBank(const string &inputAccNoOfBank){
     if(accNoOfBank != inputAccNoOfBank){                                             //reject duplicate input value
-        if(allToUpper(inputAccNoOfBank) == "NULL")
-            bankName = "NULL";                          //need add code convertor
-        else
-            bankName = "HSBC";  
-        accNoOfBank = inputAccNoOfBank;
+        if(allToUpper(accNoOfBank) == "NULL")
+            bankName = "NULL";                          
+        else{        
+            ifstream bankCodeConvertFile{"../bankCodeConvert.txt"};            //Assume the file is existed
+            string bankCode{inputAccNoOfBank.substr(0, 3)};
+            
+            string searchBankCode{""};
+            string line{""};
+            
+            
+            while(getline(bankCodeConvertFile, line)){
+                stringstream sLine{line};
+                sLine >> searchBankCode;
+                if(searchBankCode == bankCode){
+                    getline(sLine, bankName);
+                    bankName = bankName.substr(1);
+                    cout << bankName << endl;
+                    break;
+                }
+            }
+            bankCodeConvertFile.close();
+            accNoOfBank = inputAccNoOfBank;
+        }
     }
     else
         cout << "no change - not edit accNoOfBank field" << endl;
@@ -137,6 +206,12 @@ void Record::setTime(const string &inputTime){
 
 //display function//
 void Record::display() const{
-    cout << Amount << "," << Currency << "," << characterOfPayment << "," << typeOfPayment << "," 
-         << bankName << "," << accNoOfBank << "," << Date << "," << Time << endl;
+    cout << fixed << setprecision(2) << Amount << "\t" << Currency << "\t" << characterOfPayment << "\t" << typeOfPayment << "\t" 
+         << bankName << "\t" << accNoOfBank << "\t" << Date << "\t" << Time << endl;
+}
+
+ostream &operator<<(ostream &os, const Record &record){
+    os << fixed << setprecision(2) << record.getAmount() << "," << record.getCurrency() << "," << record.getCharacterOfPayment() << "," << record.getTypeOfPayment() << "," 
+         << record.getBankName() << "," << record.getAccNoOfBank() << "," << record.getDate() << "," << record.getTime();
+    return os;
 }
