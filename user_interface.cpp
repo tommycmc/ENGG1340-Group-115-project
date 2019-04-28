@@ -76,13 +76,13 @@ void menuDelRecord(Database &database, int &databaseSize, int &numOfRecord)
     //code for edit record
     cout << "Which record you would like to delete?" << endl;
     database.showDatabase(numOfRecord, 7);
-    
+
     int targetRecord{0};
     cout    << "Which record do you delete?" << endl
             << "Please enter your choice: ";
     cin >> targetRecord;
     cout << endl;
-    
+
     //show detail of record here
     cout << "Are you sure to delete this record? (y/n)" << endl;
     char choice;
@@ -110,13 +110,13 @@ void menuEditRecord(Database &database, int &databaseSize, int &numOfRecord)    
 {
     //code for edit record
     database.showDatabase(numOfRecord, 7);
-    
+
     int targetRecord;
     cout << "Which record you would like to edit?" << endl;
     cout << "\nRecord: ";
     cin >> targetRecord;
     //show detail of record here
-    
+
     cout << "1. Amount (+/-):                 " << database.getAddress()[targetRecord].getAmount() << endl;
     cout << "   Currency:                     " << database.getAddress()[targetRecord].getCurrency() << endl;
     cout << "2. Characteristic of payment (Usage): " << database.getAddress()[targetRecord].getCharacterOfPayment() << endl;
@@ -133,32 +133,60 @@ void menuEditRecord(Database &database, int &databaseSize, int &numOfRecord)    
         cout << "Amount: ";
         double inputAmount{0.0};
         cin >> inputAmount;
-        
+
         cout << "Currency: "
         string inputCurrency{""};
         cin >> inputCurrency;
-        
+
         database.getAddress()[targetRecord].setAmount(inputAmount);
         database.getAddress()[targetRecord].setCurrency(inputCurrency);
-        
+
     }
     else if(editOption == 2){
-        double inputAmount{0.0};
-        database.getAddress()[targetRecord].setAmount(inputAmount);
+        cout << "Characteristic of payment (Usage): ";
+        string inputCharacterOfPayment{""};
+        cin >> inputCharacterOfPayment;
+        database.getAddress()[targetRecord].setCharacterOfPayment(inputCharacterOfPayment);
     }
 
     else if(editOption == 3)
+    {
+        cout << "Payment method: ";
+        double inputTypeOfPayment{""};
+        cin >> inputTypeOfPayment;
+
+        cout << "Bank name: "
+        //string inputCurrency{""};
+        //cin >> inputCurrency;
+
+        database.getAddress()[targetRecord].setTypeOfPayment(inputTypeOfPayment);
+        //no bank name set yet
+
+    }
 
     else if(editOption == 4)
+    {
+        cout << "Account no.: ";
+        string inputAccNoOfBank{""};
+        cin >> inputAccNoOfBank;
+        database.getAddress()[targetRecord].setAccNoOfBank(inputAccNoOfBank);
+    }
 
     else if(editOption == 5)
+    {
+        cout << "Date: ";
+        string inputDate{""};
+        cin >> inputDate;
+        database.getAddress()[targetRecord].setDate(inputDate);
+    }
 
     else if(editOption == 6)
-
-    else if(editOption == 7)
-
-    else if(editOption == 8)
-
+    {
+        cout << "Date: ";
+        string inputTime{""};
+        cin >> inputTime;
+        database.getAddress()[targetRecord].setTime(inputTime);
+    }
     else
         //leave without change?
 }
@@ -225,7 +253,7 @@ void summaryTotalReportoutput(const int &numOfRecord){
 }
 
 void summaryAnnualReportoutput(const int &numOfRecord, const int &year){
-    cout    << fixed << std::setprecision(2) 
+    cout    << fixed << std::setprecision(2)
             << "--Summary Report " << year << "--" << std::endl
             << "Account balance = " << this->SUM(numOfRecord, year) << std::endl
             << std::endl
@@ -244,7 +272,7 @@ void summaryAnnualReportoutput(const int &numOfRecord, const int &year){
 }
 
 void summaryMonthlyReportoutput(const int &numOfRecord, const int &year, const int &month){
-    cout    << fixed << std::setprecision(2) 
+    cout    << fixed << std::setprecision(2)
             << "--Summary Report " << year << "-" << month << "--" << std::endl
             << "Account balance = " << this->SUM(numOfRecord, year, month) << std::endl
             << std::endl
