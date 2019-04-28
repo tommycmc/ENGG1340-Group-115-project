@@ -2,6 +2,8 @@
 #define DATABASE_H
 
 #include "Record.h"
+#include <iostream>
+#include <iomanip>
 
 class Database {
 private:
@@ -121,8 +123,7 @@ public:
 
 
 
-    //interface
-    
+
 
 };
 
